@@ -12,23 +12,31 @@ class TimeComponent extends React.Component{
   }
 
   render(){
+    const time = this.formatTime(this.state.hours,this.state.mins,this.state.sec);
     return (
       <div className="App">
         <header className="App-header">
-            {this.state.hours} : {this.state.mins} : {this.state.sec}
+            {time}
         </header>
       </div>
       );
   }
 
+  //returns a string representation of time in the HH:MM:SS format
+  formatTime(hours,mins,sec){
+    return [hours,mins,sec]
+      .map((x) => ('' + x).padStart(2,'0')) //returns a new array with each thing thats a string and padded with a '0' if required
+      .join(':');                           //joins all elements and add a ':' in between them
+  }
+
   //get the date and update the state accordingly
   tick(){
-    const d = new Date();
-    
+    const date = new Date();
+
     this.setState({
-      hours : d.getHours(), 
-      mins : d.getMinutes(), 
-      sec : d.getSeconds()
+      hours : date.getHours(), 
+      mins : date.getMinutes(), 
+      sec : date.getSeconds()
     });
   }
 

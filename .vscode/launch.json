@@ -9,7 +9,13 @@
             "request": "launch",
             "name": "Launch Program",
             "url": "http://localhost:3000",
-            "webRoot": "${workspaceFolder}"
+            "webRoot": "${workspaceFolder}",
+            "pathMappings": [
+                {
+                    "url": "file:///D:/JavaScript%20porjects/digital-clock/src",
+                    "path": "${workspaceFolder}/src"
+                }
+            ]
         }
     ]
 }
