@@ -15,8 +15,8 @@ class ToggleButton extends React.Component{
 
   render(){
     return(
-      <div>
-        12 hr mode:
+      <div className="Menu">
+        12 Hour Mode:
         <label className="switch">
           <input type="checkbox" onChange={this.handleChange} checked={this.props.value}/>
           <span className="slider"></span>
@@ -50,8 +50,10 @@ class TimeComponent extends React.Component{
     return (
       <div className="App">
         <header className="App-header">
-            {time}
             <ToggleButton value={this.state.is12hrMode} onChange={this.handleChange}/>
+            <div className="Time">
+              {time}
+            </div>
         </header>
       </div>
       );
