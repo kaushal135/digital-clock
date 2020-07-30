@@ -1,22 +1,57 @@
 import React from 'react';
 import './App.css';
 
+//controlled component
+class ToggleButton extends React.Component{
+  constructor(props){
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  //will call the onChange passed in as a prop
+  handleChange(event){
+    this.props.onChange(event.target.checked);
+  }
+
+  render(){
+    return(
+      <div>
+        12 hr mode:
+        <label className="switch">
+          <input type="checkbox" onChange={this.handleChange} checked={this.props.value}/>
+          <span className="slider"></span>
+        </label>
+      </div>
+    );
+  }
+}
+
 class TimeComponent extends React.Component{
   constructor(props){
     super(props);
     this.state = {
       hours : 0,
       mins : 0,
-      sec : 0
+      sec : 0,
+      is12hrMode : false
     };
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  //handle change method to set the state of the toggle button
+  handleChange(value){
+    this.setState({is12hrMode:value});
   }
 
   render(){
+
     const time = this.formatTime(this.state.hours,this.state.mins,this.state.sec);
     return (
       <div className="App">
         <header className="App-header">
             {time}
+            <ToggleButton value={this.state.is12hrMode} onChange={this.handleChange}/>
         </header>
       </div>
       );
@@ -38,6 +73,13 @@ class TimeComponent extends React.Component{
       mins : date.getMinutes(), 
       sec : date.getSeconds()
     });
+
+    //if we want to set this to 12 hours mode we simply subtract 12 if the hours is greater than 12
+    if(this.state.is12hrMode && this.state.hours > 12){
+      this.setState({
+        hours : this.state.hours - 12 
+      });
+    }
   }
 
   //register a callback method which will call tick every 100 milliseconds
